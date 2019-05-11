@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.provider.AlarmClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 // Activity che mostra gli allarmi
@@ -20,7 +21,7 @@ public class ActivityAlarms extends AppCompatActivity {
         allarme = findViewById(R.id.textView);
         // ricevo l'intent
         Intent intent = getIntent();
-        // verifico se l'intent che ricevo è triggerato dall'assistent
+        // verifico se l'intent che ricevo è triggerato dall'assistent per impostare una sveglia
         if(AlarmClock.ACTION_SET_ALARM.equals(intent.getAction())){
             // verifico se ci sono gli extra che mi servono per impostare la sveglia
             if(intent.hasExtra(AlarmClock.EXTRA_HOUR) && intent.hasExtra(AlarmClock.EXTRA_MINUTES)) {
@@ -36,7 +37,20 @@ public class ActivityAlarms extends AppCompatActivity {
             // se non ricevo nessun extra lo segnalo con la textview
             else allarme.setText("Non ci sono gli extra");
         }
-        // se non ricevo nessun intent lo segnalo con la textview
-        else allarme.setText("Non funziona");
+        // verifico se l'intent che ricevo è triggerato dall'assistent per vedere tutte le mie sveglie
+        else if(AlarmClock.ACTION_SHOW_ALARMS.equals(intent.getAction()))
+            allarme.setText("Ho triggerato questa Activity chiedendo di mostrarmi gli allarmi");
+        // ricevo l'intent dalla main activity
+        else if(getCallingActivity().getClassName().equals("com.example.memoapp.MainActivity"))
+            allarme.setText("Activity triggerata dal main");
+        // non ricevo nessun intent
+        else allarme.setText("Errore");
+    }
+
+    // metodo che mi fa tornare nell'activity precedente
+    public void backButton(View view) {
+        Intent intent = new Intent();
+        setResult(RESULT_OK, intent);
+        finish();
     }
 }

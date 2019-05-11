@@ -3,4 +3,8 @@
     <string name="str_intro">Schermata principale che mi permette di scegliere la categoria di memo</string>
     <string name="str_alarm">Schermata che mostra tutti gli allarmi</string>
     <string name="str_notes">Schermata che mostra tutte le note</string>
+    <string name="button_sveglie">Sveglie</string>
+    <string name="button_note">Note</string>
+    <string name="button_back_sveglie">Back</string>
+    <string name="button_back_note">Back</string>
 </resources>
